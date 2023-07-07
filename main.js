@@ -1,7 +1,5 @@
-"use strict";
-
-function getRandomNumber(min= 0, max= 100) {
-    return Math.ceil(Math.random() * (max - min) + min);
+function getRandomNumber(){
+    return Math.floor(Math.random() * 100);
 }
 
-export { getRandomNumber };
+module.exports= getRandomNumber;
