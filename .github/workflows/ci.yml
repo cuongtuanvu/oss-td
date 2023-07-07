@@ -1,32 +1,43 @@
-name: Continuous integration
-
+name: npm-publish
 on:
   push:
-
+    branches:
+      - main # Change this to your default branch
 jobs:
-  ci:
-    name: Continuous integration
+  mocha:
+    name: mocha
     runs-on: ubuntu-latest
-
     steps:
-      - name: "Init repo"
-        uses: actions/checkout@v3
-
-      - name: "Init node"
-        uses: actions/setup-node@v3
-        with:
-          node-versions: '19'
-
-      - name: "Install dependencies"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
         run: npm install
+      - name: Run tests
+        run: npm test
 
-      - name: "Run tests"
-        run: npm run test
+  eslint:
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Run eslint
+        run: npm run eslint
+    needs: mocha
 
-      - name: "Run eslint"
-        run: npx eslint main.js
-
-      - name: "Publish to NPM"
-        uses: JS-DevTools/npm-publish@v2
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          token: $({ secrets.NPM_TOKEN })
+          node-version: "18"
+      - run: npm i
+      - run: npm test
+      - uses: JS-DevTools/npm-publish@v2
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+    needs: eslint
