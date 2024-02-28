@@ -1,5 +1,5 @@
 {
-  "name": "oss-td4-tekrodz",
+  "name": "oss-td4-cuongtuanvu",
   "version": "1.0.5",
   "description": "The best js ever",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TekRodz/oss-td4.git"
+    "url": "git+https://github.com/cuongtuanvu/oss-td.git"
   },
   "author": "",
   "license": "ISC",
